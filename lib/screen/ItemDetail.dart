@@ -300,60 +300,111 @@ class _ItemDetailState extends State<ItemDetail> {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: new BottomAppBar(
-        color: Theme.of(context).primaryColor,
-        elevation: 0.0,
-        shape: new CircularNotchedRectangle(),
-        notchMargin: 5.0,
-        child: new Container(
-          height: 50.0,
-          decoration: new BoxDecoration(color: Theme.of(context).primaryColor),
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      bottomNavigationBar: Container(
+          margin: EdgeInsets.only(bottom: 18.0),
+          height: 60.0,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border:
+                  Border(top: BorderSide(color: Colors.grey[300], width: 1.0))),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              new GestureDetector(
-                onTap: () {},
-                child: new Container(
-                  width: (screenSize.width - 20) / 2,
-                  child: new Text(
-                    "ADD TO FAVORITES",
-                    textAlign: TextAlign.center,
-                    style: new TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w700),
-                  ),
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: 60.0,
+                      child: Text(
+                        "Total Amount",
+                        style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                      ),
+                    ),
+                    Text("Rp. "+ (widget.product.price * qty).toString(),
+                        style: TextStyle(
+                            fontSize: 25.0, fontWeight: FontWeight.w600)),
+                  ],
                 ),
               ),
-             
-             new GestureDetector(
-                  onTap: () {
-                    // CartModel cm = new CartModel();
-                    // cm.itemId = widget.product.itemId;
-                    // cm.itemCode = widget.product.itemCode;
-                    // cm.name = widget.product.name;
-                    // cm.price = widget.product.price.toDouble();
-                    // cm.imageLink = widget.product.imageLink;
-                    // cm.qty = qty;
+              ScopedModelDescendant<AppModel>(
+                builder: (context, child, model) {
+                  return RaisedButton(
+                    color: Colors.deepOrange,
+                    onPressed: () {
+                      CartModel cm = new CartModel();
+                      cm.itemId = widget.product.itemId;
+                      cm.itemCode = widget.product.itemCode;
+                      cm.name = widget.product.name;
+                      cm.price = widget.product.price.toDouble();
+                      cm.imageLink = widget.product.imageLink;
+                      cm.qty = qty;
 
-                   
-                    // CartSharedPrefHelper.setCartArray(json.encode(listcart));
-                    Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (context) => new JCart()));
-                  },
-                  child: new Container(
-                    width: (screenSize.width - 20) / 2,
-                    child: new Text(
-                      "ORDER NOW",
-                      textAlign: TextAlign.center,
-                      style: new TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w700),
+                      model.addCart(cm);
+                    },
+                    child: Text(
+                      "ADD TO CART",
+                      style: TextStyle(color: Colors.white),
                     ),
-                  ),
-                )
-              
+                  );
+                },
+              )
             ],
-          ),
-        ),
-      ),
+          )),
+
+      // bottomNavigationBar: new BottomAppBar(
+      //   color: Theme.of(context).primaryColor,
+      //   elevation: 0.0,
+      //   shape: new CircularNotchedRectangle(),
+      //   notchMargin: 5.0,
+      //   child: new Container(
+      //     height: 50.0,
+      //     decoration: new BoxDecoration(color: Theme.of(context).primaryColor),
+      //     child: new Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //       children: <Widget>[
+      //         new GestureDetector(
+      //           onTap: () {},
+      //           child: new Container(
+      //             width: (screenSize.width - 20) / 2,
+      //             child: new Text(
+      //               "ADD TO FAVORITES",
+      //               textAlign: TextAlign.center,
+      //               style: new TextStyle(
+      //                   color: Colors.white, fontWeight: FontWeight.w700),
+      //             ),
+      //           ),
+      //         ),
+
+      //        new GestureDetector(
+      //             onTap: () {
+      //              CartModel cm = new CartModel();
+      //               cm.itemId = widget.product.itemId;
+      //               cm.itemCode = widget.product.itemCode;
+      //               cm.name = widget.product.name;
+      //               cm.price = widget.product.price.toDouble();
+      //               cm.imageLink = widget.product.imageLink;
+      //               cm.qty = qty;
+
+      //              am.addCart(cm);
+      //               // CartSharedPrefHelper.setCartArray(json.encode(listcart));
+      //               Navigator.of(context).push(new MaterialPageRoute(
+      //                   builder: (context) => new JCart()));
+      //             },
+      //             child: new Container(
+      //               width: (screenSize.width - 20) / 2,
+      //               child: new Text(
+      //                 "ORDER NOW",
+      //                 textAlign: TextAlign.center,
+      //                 style: new TextStyle(
+      //                     color: Colors.white, fontWeight: FontWeight.w700),
+      //               ),
+      //             ),
+      //           )
+
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 
